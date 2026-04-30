@@ -1,0 +1,46 @@
+{
+  "comment": "xDome Alert Dashboard — custom theme overrides. Remove the underscore-prefixed keys to activate. See app/themes.py for the full schema. CSS variable values are restricted to a safe character set; semicolons and braces are forbidden.",
+  "overrides": {
+    "cyber": {
+      "--accent": "#00ff88",
+      "--accent-rgb": "0, 255, 136",
+      "--danger-bg": "#14030a",
+      "--danger-ink": "#ff4d6d",
+      "--danger-rgb": "#255,77, 109",
+      "--danger-hover": "rgba(255, 77, 109, 0.28)",
+      "--danger-selected": "rgba(255, 77, 109, 0.28"
+    }
+  },
+  "extra": [
+    {
+      "id": "cyber-neon",
+      "name": "Cyber Neon",
+      "mode": "dark",
+      "accent": "#00e5ff",
+      "vars": {
+        "--bg": "#070b12",
+        "--page-bg": "#0b1220",
+        "--panel": "#0f172a",
+        "--panel-alt": "#131c31",
+        "--ink": "#e6f1ff",
+        "--muted": "#8aa0c6",
+        "--border": "#1f2a44",
+        "--accent": "#00e5ff",
+        "--accent-ink": "#002b33",
+        "--accent-rgb": "0, 229, 255",
+        "--hover": "#16213a",
+        "--selected": "rgba(0, 229, 255, 0.12)",
+        "--danger-bg": "#14030a",
+        "--danger-ink": "#ff4d6d",
+        "--danger-rgb": "255, 77, 109",
+        "--danger-hover": "rgba(255, 77, 109, 0.18)",
+        "--danger-selected": "rgba(255, 77, 109, 0.28)",
+        "--warn-bg": "#2a1f05",
+        "--warn-ink": "#facc15",
+        "--info-bg": "#0a1f2e",
+        "--table-row": "#ff0000",
+        "--table-alt": "#00ff00"
+      }
+    }
+  ]
+}

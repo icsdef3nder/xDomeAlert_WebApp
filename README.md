@@ -19,3 +19,5 @@ Open Web App in browser:
 
 http://127.0.0.1:5000
 
+Read USER_MANUAL.md
+

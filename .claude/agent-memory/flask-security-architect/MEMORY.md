@@ -1,0 +1,2 @@
+- [Auth model](project_auth_model.md) — PAM-backed login, role from POSIX groups xdome-admin / xdome-view, root is admin.
+- [Custom themes](project_themes_overlay.md) — instance/themes.json overrides + extras, sanitised, served via /api/themes.

@@ -1,0 +1,19 @@
+  ---                                                                                                                                                                                                                                                        
+  Table background colors — Added --table-row and --table-alt variables to every theme with subtly tinted values (not flat white/black), applied via tbody tr and tbody tr:nth-child(even). Each theme has its own colour-matched row tint.                  
+                                                                                                                                                                                                                                                             
+  Editable theme file — A new app/themes.py module reads instance/themes.json. The file is auto-created as a commented example on first settings page load. Admins can add extra themes or override CSS variables for existing ones. A GET /api/themes       
+  endpoint serves the merged payload to the frontend. CSS variable values are sanitised server-side to prevent injection. theme.js fetches this on load and injects a <style> tag for overrides.                                                             
+                                                            
+  Linux PAM authentication — New app/auth.py handles PAM auth and group-based role resolution. Two roles: admin (group xdome-admin) and viewer (group xdome-view). Users in neither group are denied. The Settings menu and admin routes are hidden/blocked  
+  from viewers. All dashboard routes require login. Structured JSON logging for every auth event. python-pam degrades gracefully if unavailable.
+                                                                                                                                                                                                                                                             
+  Logo upload — Admins can upload a PNG/JPEG/GIF/WebP/SVG (max 2 MB) on the settings page. It's stored in instance/logo.<ext>. A GET /logo route serves it. The logo appears on the login page (centred above the form) and in the topbar top-left corner on 
+  all pages.                                                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                                             
+  ---                                                                                                                                                                                                                                                        
+  Before first login, provision the Linux groups:                                                                                                                                                                                                            
+  sudo groupadd xdome-admin                                                                                                                                                                                                                                  
+  sudo groupadd xdome-view 
+  sudo usermod -aG xdome-admin <your-admin-user>                                                                                                                                                                                                             
+  sudo usermod -aG xdome-view <viewer-user>                 
+  Also install the new dependency: pip install python-pam==2.0.2 (or pip install -r requirements.txt).  

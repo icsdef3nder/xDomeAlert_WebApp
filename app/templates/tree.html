@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Tree View &mdash; xDome{% endblock %}
+
+{% block content %}
+<section class="panel">
+  <div class="panel-header">
+    <h2>Alerts &rarr; Devices &rarr; Events</h2>
+    <div class="controls">
+      <label class="toggle">
+        <input type="checkbox" id="tree-only-unresolved">
+        <span>Only Unresolved Alerts</span>
+      </label>
+      <button type="button" class="btn" id="tree-refresh">Refresh</button>
+    </div>
+  </div>
+  <div id="tree-root" class="tree">
+    <div class="empty">Loading alerts&hellip;</div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/tree.js') }}"></script>
+{% endblock %}

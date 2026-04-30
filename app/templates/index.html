@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Overview &mdash; xDome{% endblock %}
+
+{% block content %}
+<section class="panel">
+  <div class="panel-header">
+    <h2>Alerts</h2>
+    <div class="controls">
+      <input type="search" id="alerts-search" placeholder="Search alerts..." autocomplete="off">
+      <label class="toggle">
+        <input type="checkbox" id="alerts-only-unresolved">
+        <span>Only Unresolved</span>
+      </label>
+      <button type="button" class="btn" data-cols-target="alerts">Columns</button>
+      <button type="button" class="btn" id="alerts-refresh">Refresh</button>
+    </div>
+  </div>
+  <div class="cols-panel" id="alerts-cols-panel" hidden></div>
+  <div class="table-wrap">
+    <table id="alerts-table">
+      <thead></thead>
+      <tbody><tr><td class="empty">Loading alerts&hellip;</td></tr></tbody>
+    </table>
+  </div>
+  <div class="table-footer">
+    <span id="alerts-status"></span>
+    <button type="button" class="btn" id="alerts-load-more" hidden>Load more</button>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-header">
+    <h2>Devices <small id="devices-context"></small></h2>
+    <div class="controls">
+      <input type="search" id="devices-search" placeholder="Search devices..." autocomplete="off">
+      <button type="button" class="btn" data-cols-target="devices">Columns</button>
+    </div>
+  </div>
+  <div class="cols-panel" id="devices-cols-panel" hidden></div>
+  <div class="table-wrap">
+    <table id="devices-table">
+      <thead></thead>
+      <tbody><tr><td class="empty">Select an alert above.</td></tr></tbody>
+    </table>
+  </div>
+  <div class="table-footer">
+    <span id="devices-status"></span>
+    <button type="button" class="btn" id="devices-load-more" hidden>Load more</button>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-header">
+    <h2>OT Activity Events <small id="events-context"></small></h2>
+    <div class="controls">
+      <input type="search" id="events-search" placeholder="Search events..." autocomplete="off">
+      <button type="button" class="btn" data-cols-target="events">Columns</button>
+    </div>
+  </div>
+  <div class="cols-panel" id="events-cols-panel" hidden></div>
+  <div class="table-wrap">
+    <table id="events-table">
+      <thead></thead>
+      <tbody><tr><td class="empty">Select a device above.</td></tr></tbody>
+    </table>
+  </div>
+  <div class="table-footer">
+    <span id="events-status"></span>
+    <button type="button" class="btn" id="events-load-more" hidden>Load more</button>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Inline bootstrapping data — read by overview.js. Keeping it here means
+  // we don't need an extra round-trip and the field catalogues come from
+  // a trusted server-rendered source (no XSS risk: tojson encodes safely).
+  window.__XDOME_META__ = {
+    fields: {
+      alerts: {{ alert_fields|tojson }},
+      devices: {{ device_fields|tojson }},
+      events: {{ event_fields|tojson }}
+    },
+    defaults: {
+      alerts: {{ default_alert_columns|tojson }},
+      devices: {{ default_device_columns|tojson }},
+      events: {{ default_event_columns|tojson }}
+    }
+  };
+</script>
+<script src="{{ url_for('static', filename='js/overview.js') }}"></script>
+{% endblock %}

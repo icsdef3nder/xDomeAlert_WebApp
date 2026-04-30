@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Settings &mdash; xDome{% endblock %}
+
+{% block content %}
+<section class="panel narrow">
+  <div class="panel-header">
+    <h2>API Settings</h2>
+    <span class="hint">Signed in as <code>{{ current_user.username }}</code> ({{ current_user.role }})</span>
+  </div>
+
+  {# ---- Logo upload ---- #}
+  <div class="logo-section">
+    <h3>Logo</h3>
+    {% if logo_exists %}
+      <img src="{{ url_for('main.logo') }}" class="logo-preview" alt="Current logo">
+    {% else %}
+      <div class="logo-empty">No logo uploaded.</div>
+    {% endif %}
+    <form class="logo-form" method="post" action="{{ url_for('main.upload_logo') }}"
+          enctype="multipart/form-data" novalidate>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <label>
+        <input type="file" name="logo" accept="image/png,image/jpeg,image/gif,image/webp,image/svg+xml" required>
+      </label>
+      <p class="hint">PNG, JPEG, GIF, WebP, or SVG. Max 2 MB.</p>
+      <button type="submit" class="btn btn-primary">Upload Logo</button>
+    </form>
+  </div>
+
+  {# ---- xDome API config ---- #}
+  {% if configured %}
+    <p class="hint">Currently configured for: <code>{{ base_uri }}</code>.
+      Re-enter the API token to update.</p>
+  {% else %}
+    <p class="hint warning">Not yet configured. Settings must be saved before
+      the dashboard can load data.</p>
+  {% endif %}
+
+  <form method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <label>{{ form.base_uri.label.text }}
+      {{ form.base_uri(class_='input', placeholder='https://xdome.example.com') }}
+    </label>
+    {% for err in form.base_uri.errors %}<div class="field-error">{{ err }}</div>{% endfor %}
+
+    <label>{{ form.api_token.label.text }}
+      {{ form.api_token(class_='input', placeholder='Bearer token', autocomplete='off') }}
+    </label>
+    {% for err in form.api_token.errors %}<div class="field-error">{{ err }}</div>{% endfor %}
+
+    <p class="hint">The token is stored at <code>instance/settings.json</code>
+      with file mode 0600. It is never sent to the browser.</p>
+
+    {{ form.submit(class_='btn btn-primary') }}
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in &mdash; xDome Alert Dashboard</title>
+  {# Mirror the pre-paint theme script from base.html so the login page
+     respects the active theme without flashing. Login does NOT extend
+     base.html — it is intentionally chrome-free. #}
+  <script>
+    (function () {
+      var DARK_THEMES = { cyber: 1, midnight: 1, carbon: 1 };
+      var KNOWN = { slate: 1, rose: 1, forest: 1, cyber: 1, midnight: 1, carbon: 1 };
+      var DEFAULT_THEME = 'slate';
+      var id = DEFAULT_THEME;
+      try {
+        var stored = localStorage.getItem('xdome_theme');
+        if (stored) {
+          id = stored;
+        } else {
+          var legacy = localStorage.getItem('xdome_dark_mode');
+          if (legacy !== null) {
+            id = legacy === '1' ? 'cyber' : 'slate';
+            try {
+              localStorage.setItem('xdome_theme', id);
+              localStorage.removeItem('xdome_dark_mode');
+            } catch (e) { /* ignore */ }
+          }
+        }
+      } catch (e) { /* localStorage unavailable */ }
+      document.documentElement.setAttribute('data-theme', id);
+      if (KNOWN[id] && DARK_THEMES[id]) document.documentElement.classList.add('dark');
+    })();
+  </script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="login-shell">
+    <div class="login-card">
+      <div class="login-card-header">
+        {% if logo_exists %}
+          <img src="{{ url_for('main.logo') }}" class="login-logo" alt="Logo">
+        {% endif %}
+        <h1 class="login-title">xDome Alert Dashboard</h1>
+        <p class="login-subtitle">Sign in with your Linux account</p>
+      </div>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flash-container">
+            {% for category, msg in messages %}
+              <div class="flash flash-{{ category }}">{{ msg }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <form method="post" novalidate autocomplete="on">
+        {{ form.hidden_tag() }}
+        <label>{{ form.username.label.text }}
+          {{ form.username(class_='input', autocomplete='username', autofocus=True) }}
+        </label>
+        {% for err in form.username.errors %}<div class="field-error">{{ err }}</div>{% endfor %}
+
+        <label>{{ form.password.label.text }}
+          {{ form.password(class_='input', autocomplete='current-password') }}
+        </label>
+        {% for err in form.password.errors %}<div class="field-error">{{ err }}</div>{% endfor %}
+
+        {{ form.submit(class_='btn btn-primary') }}
+      </form>
+
+      <div class="login-footer">
+        Linux PAM &middot; group <code>xdome-admin</code> or <code>xdome-view</code>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+</body>
+</html>

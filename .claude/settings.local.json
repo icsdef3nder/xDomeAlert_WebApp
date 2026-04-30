@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ' *)",
+      "Bash(chmod 700 /home/rocky/Documents/xDomeAlert_WebApp/instance)",
+      "Bash(python3 *)",
+      "Bash(pip install *)",
+      "Bash(python -c \"from app import create_app; app = create_app\\(\\); print\\('App created OK'\\); client = app.test_client\\(\\); r = client.get\\('/'\\); print\\('GET / status:', r.status_code\\); r2 = client.get\\('/settings'\\); print\\('GET /settings status:', r2.status_code\\); r3 = client.get\\('/tree'\\); print\\('GET /tree status:', r3.status_code\\)\")",
+      "Bash(venv/bin/pip install *)",
+      "Bash(venv/bin/python -c ' *)",
+      "Bash(/home/rocky/Documents/xDomeAlert_WebApp/venv/bin/python *)",
+      "Bash(python *)",
+      "Bash(node -e \"new Function\\(require\\('fs'\\).readFileSync\\('app/static/js/overview.js','utf8'\\)\\); console.log\\('OK: overview.js parses'\\)\")",
+      "Bash(node --check /home/rocky/Documents/xDomeAlert_WebApp/app/static/js/overview.js)",
+      "Bash(node --check /home/rocky/Documents/xDomeAlert_WebApp/app/static/js/theme.js)",
+      "Bash(/home/rocky/Documents/xDomeAlert_WebApp/venv/bin/pip show *)",
+      "Bash(/home/rocky/Documents/xDomeAlert_WebApp/venv/bin/pip list *)",
+      "Bash(/home/rocky/Documents/xDomeAlert_WebApp/venv/bin/pip install *)",
+      "Bash(./venv/bin/python *)"
+    ]
+  }
+}

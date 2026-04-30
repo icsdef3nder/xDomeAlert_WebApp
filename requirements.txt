@@ -1,0 +1,11 @@
+Flask==3.0.3
+Flask-WTF==1.2.1
+Flask-Login==0.6.3
+Werkzeug==3.0.4
+requests==2.32.3
+python-dotenv==1.0.1
+python-pam==2.0.2
+# python-pam 2.0.2 imports `six` in pam/__internals.py but omits it
+# from its install_requires (upstream packaging bug). Pin explicitly so
+# `pip install -r requirements.txt` produces a working PAM stack.
+six==1.16.0

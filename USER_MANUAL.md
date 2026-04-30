@@ -48,6 +48,10 @@ To log in, a user must:
 If a user without the appropriate role attempts to access an admin-only page,
 they will receive an HTTP 403 (Forbidden) response.
 
+Admin should be member of the group `xdome-admin`
+Viewer should be member of the group `xdome-viewer`
+
+
 ### 2.3 Browser requirements
 
 The UI is built for modern, evergreen browsers (recent versions of Chromium,

@@ -8,6 +8,13 @@ mkdir xDomeAlert_WebApp
 git clone https://github.com/icsdef3nder/xDomeAlert_WebApp.git
 ```
 
+Prepare user and groups:
+The solution is using the Linux PAM for authentication and authorization. Create the following groups:
+- xDome-Viewer
+- xDome-Admin
+
+The xDome-Admin will have acccess to the settings page for setting up the appliction. The xDome-Viewer will have access to the application without the settings menu.
+
 Run the application:
 ```
 cd ~/Documents/xDomeAlert_WebApp
